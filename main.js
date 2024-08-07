@@ -35,4 +35,14 @@ function operate(sign, x, y) {
   }
 }
 
-operate(operator, num1, num2);
+// operate(operator, num1, num2);
+
+const display = document.querySelector("#display");
+const btns = document.querySelector("#btns");
+
+// display.textContent = 33;
+
+btns.addEventListener("click", (e) => {
+  let value = e.target.innerText;
+  display.textContent += value;
+});
