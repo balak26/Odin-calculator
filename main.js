@@ -14,23 +14,25 @@ function div(x, y) {
   return x / y;
 }
 
-let num1 = 2,
+let num1 = 20,
   num2 = 8,
-  operator = "+";
+  operator = "/";
 
-switch (operator) {
-  case "+":
-    console.log(add(num1, num2));
-    break;
-  case "-":
-    console.log(sub(num1, num2));
-    break;
-  case "*":
-    mult(num1, num2);
-    break;
-  case "/":
-    div(num1, num2);
-
-  default:
-    console.log("Error");
+function operate(sign, x, y) {
+  switch (sign) {
+    case "+":
+      console.log(add(x, y));
+      break;
+    case "-":
+      console.log(sub(x, y));
+      break;
+    case "*":
+      console.log(mult(x, y));
+      break;
+    case "/":
+      console.log(div(x, y));
+      break;
+  }
 }
+
+operate(operator, num1, num2);
