@@ -38,7 +38,7 @@ function operate(sign, x, y) {
 // operate(operator, num1, num2);
 
 const display = document.querySelector("#display");
-const btns = document.querySelector("#btns");
+const btns = document.querySelector(".btns");
 
 // display.textContent = 33;
 
