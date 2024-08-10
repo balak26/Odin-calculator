@@ -1,48 +1,102 @@
-function add(x, y) {
-  return x + y;
+const buttons = document.querySelectorAll("button");
+const display = document.getElementById("display");
+let displayValue = "0";
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
+let result = "";
+
+function add(a, b) {
+  return a + b;
 }
 
-function sub(x, y) {
-  return x - y;
+function subtract(a, b) {
+  return a - b;
 }
 
-function mult(x, y) {
-  return x * y;
+function multiply(a, b) {
+  return a * b;
 }
 
-function div(x, y) {
-  return x / y;
-}
-
-let num1 = 20,
-  num2 = 8,
-  operator = "/";
-
-function operate(sign, x, y) {
-  switch (sign) {
-    case "+":
-      console.log(add(x, y));
-      break;
-    case "-":
-      console.log(sub(x, y));
-      break;
-    case "*":
-      console.log(mult(x, y));
-      break;
-    case "/":
-      console.log(div(x, y));
-      break;
+function divide(a, b) {
+  if (b === 0) {
+    return "Error: Division by zero";
+  } else {
+    return a / b;
   }
 }
 
-// operate(operator, num1, num2);
+function operate(operator, a, b) {
+  switch (operator) {
+    case "+":
+      return add(a, b);
+    case "-":
+      return subtract(a, b);
+    case "*":
+      return multiply(a, b);
+    case "/":
+      return divide(a, b);
+    default:
+      return null;
+  }
+}
 
-const display = document.querySelector("#display");
-const btns = document.querySelector(".btns");
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const buttonValue = button.textContent;
 
-// display.textContent = 33;
-
-btns.addEventListener("click", (e) => {
-  let value = e.target.innerText;
-  display.textContent += value;
+    if (!isNaN(buttonValue) || buttonValue === ".") {
+      handleNumber(buttonValue);
+    } else if (buttonValue === "C") {
+      clearCalculator();
+    } else if (buttonValue === "=") {
+      calculate();
+    } else {
+      handleOperator(buttonValue);
+    }
+  });
 });
+
+function handleNumber(num) {
+  if (operator === "") {
+    firstNumber += num;
+    displayValue = firstNumber;
+  } else {
+    secondNumber += num;
+    displayValue = secondNumber;
+  }
+  updateDisplay();
+}
+
+function handleOperator(op) {
+  if (firstNumber !== "") {
+    operator = op;
+  }
+}
+
+function calculate() {
+  if (firstNumber !== "" && secondNumber !== "") {
+    result = operate(
+      operator,
+      parseFloat(firstNumber),
+      parseFloat(secondNumber)
+    );
+    displayValue = result;
+    firstNumber = result;
+    secondNumber = "";
+    operator = "";
+    updateDisplay();
+  }
+}
+
+function updateDisplay() {
+  display.textContent = displayValue;
+}
+
+function clearCalculator() {
+  displayValue = "0";
+  firstNumber = "";
+  secondNumber = "";
+  operator = "";
+  updateDisplay();
+}
